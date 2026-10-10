@@ -1,5 +1,5 @@
 # This file is part of Skylanders Portal Emulator.
-# Copyright (C) 2026  Alexander Shaffer <alexander.shaffer.623@gmail.com>
+# Copyright (C) 2026 Alexander Shaffer <alexander.shaffer.623@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -27,7 +27,6 @@ file(
 
 set(PICO_SDK_FETCH_FROM_GIT ON)
 set(PICO_SDK_FETCH_FROM_GIT_TAG 079c6f39023649b154152db30f1d781e884879bc)
-set(PICO_BOARD pico_w)
 
 include(${CMAKE_BINARY_DIR}/pico_sdk_import.cmake)
 project(SkylandersPortalEmulator)

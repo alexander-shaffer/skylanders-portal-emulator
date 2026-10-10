@@ -1,9 +1,11 @@
 /*
  * This file is a copy of https://github.com/raspberrypi/pico-examples/blob/47f24e458a796bbea9a0f08a277b1197d429152e/bluetooth/config/btstack_config_common.h.
- * Besides the addition of this comment and the copyright notice below, all changes made to this file after copying are documented with comments starting with "CHANGE."
+ * Besides the addition of this comment, the copyright notice, and the license, all changes made to this file after copying are documented with comments starting with "CHANGE."
  */
 
 /*
+ * License: BSD 3-Clause License
+ *
  * Copyright 2020 (c) 2020 Raspberry Pi (Trading) Ltd.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the

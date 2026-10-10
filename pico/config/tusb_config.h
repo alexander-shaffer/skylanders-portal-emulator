@@ -1,9 +1,11 @@
 /*
  * This file is a copy of https://github.com/raspberrypi/pico-examples/blob/7fe60d6b4027771e45d97f207532c41b1d8c5418/usb/device/dev_hid_composite/tusb_config.h.
- * Besides the addition of this comment and the copyright notice below, all changes made to this file after copying are documented with comments starting with "CHANGE."
+ * Besides the addition of this comment, the copyright notice, and the license, all changes made to this file after copying are documented with comments starting with "CHANGE."
  */
 
 /*
+ * License: BSD 3-Clause License
+ *
  * Copyright 2020 (c) 2020 Raspberry Pi (Trading) Ltd.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the

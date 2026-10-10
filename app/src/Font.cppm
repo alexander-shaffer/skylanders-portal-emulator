@@ -1,6 +1,6 @@
 /*
  * This file is part of Skylanders Portal Emulator.
- * Copyright (C) 2026  Alexander Shaffer <alexander.shaffer.623@gmail.com>
+ * Copyright (C) 2026 Alexander Shaffer <alexander.shaffer.623@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,6 +23,7 @@ export module Font;
  * Embedded by compiling and executing https://github.com/ocornut/imgui/blob/master/misc/fonts/binary_to_compressed_c.cpp
  * Font download link: https://www.fontspace.com/techna-sans-font-f34640
  * Date embedded: 1/5/2026
+ * License: SIL Open Font License 1.1
  *
  * Copyright (c) 2019, Carl Enlund
  *
