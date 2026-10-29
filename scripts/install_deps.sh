@@ -1,6 +1,6 @@
 #!/bin/bash
 
-root_dir="$(dirname $0)"
+root_dir="$(dirname "$0")"
 source "$root_dir/utils.sh" "$1"
 
 has() {
@@ -47,4 +47,3 @@ elif has winget; then
 else
   display_error "Failed to find apt, dnf, pacman, or winget"
 fi
-

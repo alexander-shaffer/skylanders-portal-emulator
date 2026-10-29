@@ -16,10 +16,9 @@ is_windows_system() {
 }
 
 if [[ "$1" == app ]]; then
-  cd "$(dirname $0)/app"
+  cd "$(dirname "$0")/../app"
 elif [[ "$1" == pico_w || "$1" == pico2_w ]]; then
-  cd "$(dirname $0)/pico"
+  cd "$(dirname "$0")/../pico"
 else
   display_error "Expected the first argument to be app, pico_w, or pico2_w"
 fi
-
