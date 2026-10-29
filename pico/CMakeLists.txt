@@ -22,18 +22,18 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 file(
     DOWNLOAD
     https://raw.githubusercontent.com/raspberrypi/pico-sdk/079c6f39023649b154152db30f1d781e884879bc/external/pico_sdk_import.cmake
-    ${CMAKE_BINARY_DIR}/pico_sdk_import.cmake
+    "${CMAKE_BINARY_DIR}/pico_sdk_import.cmake"
 )
 
 set(PICO_SDK_FETCH_FROM_GIT ON)
 set(PICO_SDK_FETCH_FROM_GIT_TAG 079c6f39023649b154152db30f1d781e884879bc)
 
-include(${CMAKE_BINARY_DIR}/pico_sdk_import.cmake)
-project(SkylandersPortalEmulator)
+include("${CMAKE_BINARY_DIR}/pico_sdk_import.cmake")
+project(skylanders-portal-emulator)
 pico_sdk_init()
 
-add_executable(SkylandersPortalEmulator src/Main.cpp src/UsbDescriptors.cpp)
-target_include_directories(SkylandersPortalEmulator PRIVATE config/ ../common/)
-target_link_libraries(SkylandersPortalEmulator pico_stdlib pico_btstack_ble pico_btstack_cyw43 pico_cyw43_arch_none tinyusb_device tinyusb_board pico_multicore)
-pico_btstack_make_gatt_header(SkylandersPortalEmulator PRIVATE ${CMAKE_CURRENT_LIST_DIR}/config/server.gatt)
-pico_add_extra_outputs(SkylandersPortalEmulator)
+add_executable(skylanders-portal-emulator "src/Main.cpp" "src/UsbDescriptors.cpp")
+target_include_directories(skylanders-portal-emulator PRIVATE "config/" "../common/")
+target_link_libraries(skylanders-portal-emulator pico_stdlib pico_btstack_ble pico_btstack_cyw43 pico_cyw43_arch_none tinyusb_device tinyusb_board pico_multicore)
+pico_btstack_make_gatt_header(skylanders-portal-emulator PRIVATE "${CMAKE_CURRENT_LIST_DIR}/config/server.gatt")
+pico_add_extra_outputs(skylanders-portal-emulator)

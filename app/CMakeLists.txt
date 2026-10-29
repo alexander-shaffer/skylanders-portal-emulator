@@ -19,7 +19,7 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-project(SkylandersPortalEmulator)
+project(skylanders-portal-emulator)
 include(FetchContent)
 
 FetchContent_Declare(ImGui
@@ -48,15 +48,15 @@ FetchContent_Declare(SimpleBle
 set(SDL_SHARED OFF)
 set(SDL_STATIC ON)
 FetchContent_MakeAvailable(ImGui Sdl Stb SimpleBle)
-add_subdirectory(${simpleble_SOURCE_DIR}/simpleble ${simpleble_BINARY_DIR})
+add_subdirectory("${simpleble_SOURCE_DIR}/simpleble" "${simpleble_BINARY_DIR}")
 
 add_library(ImGui STATIC
-    ${imgui_SOURCE_DIR}/imgui.cpp
-    ${imgui_SOURCE_DIR}/imgui_draw.cpp
-    ${imgui_SOURCE_DIR}/imgui_tables.cpp
-    ${imgui_SOURCE_DIR}/imgui_widgets.cpp
-    ${imgui_SOURCE_DIR}/backends/imgui_impl_sdl3.cpp
-    ${imgui_SOURCE_DIR}/backends/imgui_impl_sdlrenderer3.cpp
+    "${imgui_SOURCE_DIR}/imgui.cpp"
+    "${imgui_SOURCE_DIR}/imgui_draw.cpp"
+    "${imgui_SOURCE_DIR}/imgui_tables.cpp"
+    "${imgui_SOURCE_DIR}/imgui_widgets.cpp"
+    "${imgui_SOURCE_DIR}/backends/imgui_impl_sdl3.cpp"
+    "${imgui_SOURCE_DIR}/backends/imgui_impl_sdlrenderer3.cpp"
 )
 
 target_compile_options(ImGui PUBLIC
@@ -66,34 +66,34 @@ target_compile_options(ImGui PUBLIC
   -DIMGUI_DISABLE_DEFAULT_FONT
 )
 
-target_include_directories(ImGui PUBLIC ${imgui_SOURCE_DIR} ${sdl_SOURCE_DIR}/include)
-add_executable(SkylandersPortalEmulator WIN32)
+target_include_directories(ImGui PUBLIC "${imgui_SOURCE_DIR}" "${sdl_SOURCE_DIR}/include")
+add_executable(skylanders-portal-emulator WIN32)
 
-target_sources(SkylandersPortalEmulator
+target_sources(skylanders-portal-emulator
     PRIVATE
-    src/Figure.cpp
-    src/FigureLoader.cpp
-    src/Gate.cpp
-    src/Main.cpp
-    src/Owner.cpp
-    src/PortalEmulator.cpp
-    src/PortalSlot.cpp
-    src/Texture.cpp
+    "src/Figure.cpp"
+    "src/FigureLoader.cpp"
+    "src/Gate.cpp"
+    "src/Main.cpp"
+    "src/Owner.cpp"
+    "src/PortalEmulator.cpp"
+    "src/PortalSlot.cpp"
+    "src/Texture.cpp"
 
     PRIVATE FILE_SET CXX_MODULES FILES
-    src/Figure.cppm
-    src/FigureLoader.cppm
-    src/Font.cppm
-    src/Gate.cppm
-    src/Owner.cppm
-    src/PortalEmulator.cppm
-    src/PortalSlot.cppm
-    src/Texture.cppm
+    "src/Figure.cppm"
+    "src/FigureLoader.cppm"
+    "src/Font.cppm"
+    "src/Gate.cppm"
+    "src/Owner.cppm"
+    "src/PortalEmulator.cppm"
+    "src/PortalSlot.cppm"
+    "src/Texture.cppm"
 )
 
-target_link_libraries(SkylandersPortalEmulator PRIVATE ImGui SDL3::SDL3 simpleble::simpleble)
-target_include_directories(SkylandersPortalEmulator PRIVATE ../common/ ${stb_SOURCE_DIR})
+target_link_libraries(skylanders-portal-emulator PRIVATE ImGui SDL3::SDL3 simpleble::simpleble)
+target_include_directories(skylanders-portal-emulator PRIVATE "../common/" "${stb_SOURCE_DIR}")
 
 if(MSVC)
-  target_link_options(SkylandersPortalEmulator PRIVATE "/ENTRY:mainCRTStartup")
+  target_link_options(skylanders-portal-emulator PRIVATE "/ENTRY:mainCRTStartup")
 endif()
