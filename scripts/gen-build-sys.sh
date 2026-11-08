@@ -8,10 +8,10 @@ display_message "Generating build system..."
 
 if [[ "$1" == app ]]; then
   if is_windows_system; then
-    display_message "TODO"
+    cmake -B build -G "Visual Studio 18 2026"
   else
-    cmake -B build -G Ninja -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ "$build_type"
+    cmake -B build -G Ninja -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ $build_type
   fi
 else
-  cmake -B build -G Ninja -DCMAKE_C_COMPILER_WORKS=1 -DCMAKE_CXX_COMPILER_WORKS=1 "$build_type" -DPICO_BOARD="$1"
+  cmake -B build -G Ninja -DCMAKE_C_COMPILER_WORKS=1 -DCMAKE_CXX_COMPILER_WORKS=1 $build_type -DPICO_BOARD="$1"
 fi

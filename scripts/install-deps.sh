@@ -10,7 +10,16 @@ has() {
 display_message "Installing build dependencies..."
 [[ $UID != 0 ]] && sudo=sudo 
 
-if has apt; then
+if has winget; then
+  common_args="--silent --accept-source-agreements --accept-package-agreements --disable-interactivity"
+
+  if [[ "$1" == app ]]; then
+    winget install $common_args Git.Git Kitware.CMake
+    winget install $common_args --force Microsoft.VisualStudio.BuildTools --override "--quiet --wait --add Microsoft.VisualStudio.Workload.VCTools --includeRecommended"
+  else
+    winget install $common_args Git.Git Kitware.CMake Ninja-build.Ninja Arm.ArmGnuToolchain Python.Python.3.14 MartinStorsjo.LLVM-MinGW.MSVCRT
+  fi
+elif has apt; then
   $sudo apt-get update
   export DEBIAN_FRONTEND=noninteractive
   
@@ -38,12 +47,6 @@ elif has pacman; then
   else
     $sudo pacman -Sy --needed --noconfirm cmake python base-devel arm-none-eabi-gcc arm-none-eabi-newlib git ninja
   fi
-elif has winget; then
-  if [[ "$1" == app ]]; then
-    display_message "TODO"
-  else
-    display_message "TODO"
-  fi
 else
-  display_error "Failed to find apt, dnf, pacman, or winget"
+  display_error "Failed to find winget, apt, dnf, or pacman"
 fi

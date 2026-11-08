@@ -33,6 +33,7 @@
 #include <pico/multicore.h>
 #include <Common.hpp>
 #include <span>
+#include <bit>
 
 namespace
 {
