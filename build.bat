@@ -13,4 +13,4 @@ if %ERRORLEVEL% neq 0 (
   winget install --silent --accept-source-agreements --accept-package-agreements --disable-interactivity --id Git.Git
 )
 
-start build.sh %*
+start "" /wait "%~dp0build.sh" %*
