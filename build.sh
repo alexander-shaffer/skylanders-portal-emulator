@@ -2,31 +2,22 @@
 
 set -e
 
-display_message() {
-  echo -e "\e[1;32m$1\e[0m"
-}
-
-display_error() {
-  echo -e "\e[1;31m$1\e[0m"
-  exit 1
-}
-
 has() {
   command -v "$1" &> /dev/null
 }
 
 install_build_deps() {
-  display_message "Installing build dependencies..."
+  echo "Installing build dependencies..."
   [[ "$UID" != 0 ]] && sudo=sudo
 
   if has winget; then
     common_args="--silent --accept-source-agreements --accept-package-agreements --disable-interactivity"
 
     if [[ -v is_app ]]; then
-      winget install $common_args Git.Git Kitware.CMake
-      winget install $common_args --force Microsoft.VisualStudio.BuildTools --override "--quiet --wait --add Microsoft.VisualStudio.Workload.VCTools --includeRecommended"
+      winget install $common_args Kitware.CMake || true
+      winget install $common_args --force Microsoft.VisualStudio.BuildTools --override "--quiet --wait --add Microsoft.VisualStudio.Workload.VCTools --includeRecommended" || true
     else
-      winget install $common_args Git.Git Kitware.CMake Ninja-build.Ninja Arm.ArmGnuToolchain Python.Python.3.14 MartinStorsjo.LLVM-MinGW.MSVCRT
+      winget install $common_args Kitware.CMake Ninja-build.Ninja Arm.ArmGnuToolchain Python.Python.3.14 MartinStorsjo.LLVM-MinGW.MSVCRT || true
     fi
   elif has apt; then
     $sudo apt-get update
@@ -57,12 +48,13 @@ install_build_deps() {
       $sudo pacman -Sy --needed --noconfirm cmake python base-devel arm-none-eabi-gcc arm-none-eabi-newlib git ninja
     fi
   else
-    display_error "Failed to find winget, apt, dnf, or pacman"
+    echo "Failed to find winget, apt, dnf, or pacman."
+    exit 1
   fi
 }
 
 generate_build_system() {
-  display_message "Generating build system..."
+  echo "Generating build system..."
 
   if [[ -v is_app ]]; then
     if has winget; then
@@ -86,7 +78,8 @@ elif [[ "$1" == picow || "$1" == pico2w ]]; then
   build_file="build/$1-${build_type,,}"
   cd "$(dirname "$0")/pico"
 else
-  display_error "Expected the first argument to be app, picow, or pico2w"
+  echo "Expected the first argument to be app, picow, or pico2w."
+  exit 1
 fi
 
 marker_file=.install-deps-marker
@@ -94,12 +87,13 @@ marker_file=.install-deps-marker
 if [[ ! -f "$marker_file" ]]; then
   install_build_deps
   touch "$marker_file"
+  has winget && start ../build.sh "$@" && exit 0
 fi
 
 if [[ ! -d "$build_file" ]]; then
   generate_build_system
 fi
 
-display_message "Building..."
+echo "Building..."
 [[ -v is_app ]] && has winget && config="--config $build_type"
 cmake --build "$build_file" $config
