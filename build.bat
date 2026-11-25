@@ -13,4 +13,14 @@ if %ERRORLEVEL% neq 0 (
   winget install --silent --accept-source-agreements --accept-package-agreements --disable-interactivity --id Git.Git
 )
 
-start "" /wait "%~dp0build.sh" %*
+:: Manually update the PATH environment variable to avoid starting a new terminal window.
+for /f "delims=" %%a in ('powershell -NoProfile -Command ^
+  "[System.Environment]::GetEnvironmentVariable('Path', 'Machine') + ';' + [System.Environment]::GetEnvironmentVariable('Path', 'User')"') ^
+do (
+  set PATH=%%a
+)
+
+:: Execute build.sh using bash.exe to avoid opening a Git Bash terminal window.
+for /f "delims=" %%a in ('where git') do (
+  "%%~dpa..\bin\bash.exe" "%~dp0build.sh" %*
+)

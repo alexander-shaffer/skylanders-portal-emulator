@@ -88,9 +88,8 @@ if [[ ! -f "$marker_file" ]]; then
   install_build_deps
   touch "$marker_file"
 
-  # On Windows, the PATH environment variable must be manually updated to avoid having to start a new terminal session.
-  has winget && PATH="$PATH:$(powershell -NoProfile -Command "[System.Environment]::GetEnvironmentVariable('Path', 'Machine') + ';' + \
-    [System.Environment]::GetEnvironmentVariable('Path', 'User')" | cygpath --path --file -)" && export PATH
+  # Execute build.bat on Windows to manually update the PATH environment variable and avoid starting a new terminal window.
+  has winget && ../build.bat "$@" && exit
 fi
 
 if [[ ! -d "$build_file" ]]; then
